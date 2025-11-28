@@ -1,42 +1,45 @@
 package checker;
 
 import result.DuplicateResult;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class BoxChecker implements Checker {
 
-    public DuplicateResult validate(int[][] board) {
-        DuplicateResult result = new DuplicateResult();
-        int boxIndex = 1;
+    private final int[][] board;
 
-        for (int br = 0; br < 3; br++) {
-            for (int bc = 0; bc < 3; bc++) {
-
-                HashSet<Integer> seen = new HashSet<>();
-                HashSet<Integer> dup = new HashSet<>();
-
-                for (int r = br * 3; r < br * 3 + 3; r++) {
-                    for (int c = bc * 3; c < bc * 3 + 3; c++) {
-                        int value = board[r][c];
-                        if (!seen.add(value))
-                            dup.add(value);
-                    }
-                }
-
-                if (!dup.isEmpty()) {
-                    result.add("BOX " + boxIndex + " duplicates: " + dup);
-                }
-
-                boxIndex++;
-            }
-        }
-
-        return result;
+    public BoxChecker(int[][] board) {
+        this.board = board;
     }
 
     @Override
     public List<DuplicateResult> check() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        List<DuplicateResult> results = new ArrayList<>();
+
+        for (int box = 0; box < 9; box++) {
+
+            int startRow = (box / 3) * 3;
+            int startCol = (box % 3) * 3;
+
+            int[] freq = new int[10];
+            int[] fullBox = new int[9];
+            int idx = 0;
+
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) {
+                    int value = board[startRow + r][startCol + c];
+                    fullBox[idx++] = value;
+                    freq[value]++;
+                }
+            }
+
+            for (int num = 1; num <= 9; num++) {
+                if (freq[num] > 1) {
+                    results.add(new DuplicateResult("BOX", box + 1, num, fullBox));
+                }
+            }
+        }
+
+        return results;
     }
 }

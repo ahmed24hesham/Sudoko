@@ -2,12 +2,23 @@ package checker;
 
 public class CheckerFactory {
 
-    public static Checker createChecker(String type) {
-        return switch (type.toLowerCase()) {
-            case "row" -> new RowChecker();
-            case "col" -> new ColumnChecker();
-            case "box" -> new BoxChecker();
-            default -> throw new IllegalArgumentException("Unknown checker type: " + type);
-        };
+    public static Checker createChecker(String type, int[][] board) {
+
+        switch (type.toLowerCase()) {
+
+            case "row":
+                return new RowChecker(board);
+
+            case "column":
+            case "col":
+                return new ColumnChecker(board);
+
+            case "box":
+                return new BoxChecker(board);
+
+            default:
+                throw new IllegalArgumentException("Unknown checker type: " + type);
+        }
     }
 }
+

@@ -1,22 +1,37 @@
 package result;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DuplicateResult {
-    private boolean valid = true;
-    private final List<String> messages = new ArrayList<>();
 
-    public void add(String msg) {
-        valid = false;
-        messages.add(msg);
+    private final String type;     // ROW, COL, BOX
+    private final int index;       // 1–9
+    private final int duplicate;   // The repeated number (ex: 1)
+    private final int[] values;    // Full row/col/box content
+
+    public DuplicateResult(String type, int index, int duplicate, int[] values) {
+        this.type = type;
+        this.index = index;
+        this.duplicate = duplicate;
+        this.values = values;
     }
 
-    public boolean isValid() {
-        return valid;
-    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
 
-    public List<String> getMessages() {
-        return messages;
+        sb.append(type)
+                .append(" ")
+                .append(index)
+                .append(", #")
+                .append(duplicate)
+                .append(", [");
+
+        for (int i = 0; i < values.length; i++) {
+            sb.append(values[i]);
+            if (i < values.length - 1)
+                sb.append(", ");
+        }
+        sb.append("]");
+
+        return sb.toString();
     }
 }

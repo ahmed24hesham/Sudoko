@@ -1,35 +1,39 @@
 package checker;
 
 import result.DuplicateResult;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class ColumnChecker implements Checker {
 
-    public DuplicateResult validate(int[][] board) {
-        DuplicateResult result = new DuplicateResult();
+    private final int[][] board;
 
-        for (int col = 0; col < 9; col++) {
-            HashSet<Integer> seen = new HashSet<>();
-            HashSet<Integer> dup = new HashSet<>();
-
-            for (int row = 0; row < 9; row++) {
-                int value = board[row][col];
-                if (!seen.add(value)) {
-                    dup.add(value);
-                }
-            }
-
-            if (!dup.isEmpty()) {
-                result.add("COL " + (col + 1) + " duplicates: " + dup);
-            }
-        }
-
-        return result;
+    public ColumnChecker(int[][] board) {
+        this.board = board;
     }
 
     @Override
     public List<DuplicateResult> check() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        List<DuplicateResult> results = new ArrayList<>();
+
+        for (int col = 0; col < 9; col++) {
+
+            int[] freq = new int[10];
+            int[] fullCol = new int[9];
+
+            for (int row = 0; row < 9; row++) {
+                int value = board[row][col];
+                fullCol[row] = value;
+                freq[value]++;
+            }
+
+            for (int num = 1; num <= 9; num++) {
+                if (freq[num] > 1) {
+                    results.add(new DuplicateResult("COL", col + 1, num, fullCol));
+                }
+            }
+        }
+
+        return results;
     }
 }
