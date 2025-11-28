@@ -1,4 +1,5 @@
 package checker;
 
-public class Checker {
+public interface Checker {
+    List<DuplicateResult> check();
 }
