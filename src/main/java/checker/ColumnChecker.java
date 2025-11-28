@@ -1,15 +1,23 @@
 package checker;
 
 import result.DuplicateResult;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class ColumnChecker implements Checker {
 
-    public DuplicateResult validate(int[][] board) {
-        DuplicateResult result = new DuplicateResult();
+    private final int[][] board;
+
+    public ColumnChecker(int[][] board) {
+        this.board = board;
+    }
+
+    @Override
+    public List<DuplicateResult> check() {
+
+        List<DuplicateResult> results = new ArrayList<>();
 
         for (int col = 0; col < 9; col++) {
+
             HashSet<Integer> seen = new HashSet<>();
             HashSet<Integer> dup = new HashSet<>();
 
@@ -21,15 +29,11 @@ public class ColumnChecker implements Checker {
             }
 
             if (!dup.isEmpty()) {
-                result.add("COL " + (col + 1) + " duplicates: " + dup);
+                DuplicateResult r = new DuplicateResult("COL " + (col + 1),dup);
+                results.add(r);
             }
         }
 
-        return result;
-    }
-
-    @Override
-    public List<DuplicateResult> check() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return results;
     }
 }

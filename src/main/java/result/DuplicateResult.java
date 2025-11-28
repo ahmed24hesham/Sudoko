@@ -3,20 +3,21 @@ package result;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import java.util.Set;
+
 public class DuplicateResult {
-    private boolean valid = true;
-    private final List<String> messages = new ArrayList<>();
 
-    public void add(String msg) {
-        valid = false;
-        messages.add(msg);
+    private final String location;
+    private final Set<Integer> duplicates;
+
+    public DuplicateResult(String location, Set<Integer> duplicates) {
+        this.location = location;
+        this.duplicates = duplicates;
     }
 
-    public boolean isValid() {
-        return valid;
-    }
-
-    public List<String> getMessages() {
-        return messages;
+    @Override
+    public String toString() {
+        return location + " duplicates: " + duplicates;
     }
 }

@@ -6,8 +6,15 @@ import java.util.List;
 
 public class RowChecker implements Checker {
 
-    public DuplicateResult validate(int[][] board) {
-        DuplicateResult result = new DuplicateResult();
+    private final int[][] board;
+
+    public RowChecker(int[][] board) {
+        this.board = board;
+    }
+
+    @Override
+    public List<DuplicateResult> check() {
+        List<DuplicateResult> results = new ArrayList<>();
 
         for (int row = 0; row < 9; row++) {
             HashSet<Integer> seen = new HashSet<>();
@@ -21,15 +28,13 @@ public class RowChecker implements Checker {
             }
 
             if (!dup.isEmpty()) {
-                result.add("ROW " + (row + 1) + " duplicates: " + dup);
+                results.add(new DuplicateResult(
+                        "ROW " + (row + 1),
+                        dup
+                ));
             }
         }
 
-        return result;
-    }
-
-    @Override
-    public List<DuplicateResult> check() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return results;
     }
 }
