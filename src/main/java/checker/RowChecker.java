@@ -2,10 +2,10 @@ package checker;
 
 import result.DuplicateResult;
 import java.util.HashSet;
+import java.util.List;
 
 public class RowChecker implements Checker {
 
-    @Override
     public DuplicateResult validate(int[][] board) {
         DuplicateResult result = new DuplicateResult();
 
@@ -26,5 +26,10 @@ public class RowChecker implements Checker {
         }
 
         return result;
+    }
+
+    @Override
+    public List<DuplicateResult> check() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
