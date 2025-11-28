@@ -1,23 +1,37 @@
 package result;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-import java.util.Set;
-
 public class DuplicateResult {
 
-    private final String location;
-    private final Set<Integer> duplicates;
+    private final String type;     // ROW, COL, BOX
+    private final int index;       // 1–9
+    private final int duplicate;   // The repeated number (ex: 1)
+    private final int[] values;    // Full row/col/box content
 
-    public DuplicateResult(String location, Set<Integer> duplicates) {
-        this.location = location;
-        this.duplicates = duplicates;
+    public DuplicateResult(String type, int index, int duplicate, int[] values) {
+        this.type = type;
+        this.index = index;
+        this.duplicate = duplicate;
+        this.values = values;
     }
 
     @Override
     public String toString() {
-        return location + " duplicates: " + duplicates;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(type)
+                .append(" ")
+                .append(index)
+                .append(", #")
+                .append(duplicate)
+                .append(", [");
+
+        for (int i = 0; i < values.length; i++) {
+            sb.append(values[i]);
+            if (i < values.length - 1)
+                sb.append(", ");
+        }
+        sb.append("]");
+
+        return sb.toString();
     }
 }

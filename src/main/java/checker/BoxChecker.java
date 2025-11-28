@@ -1,8 +1,7 @@
 package checker;
 
 import result.DuplicateResult;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class BoxChecker implements Checker {
 
@@ -19,35 +18,28 @@ public class BoxChecker implements Checker {
 
         for (int box = 0; box < 9; box++) {
 
-            HashSet<Integer> seen = new HashSet<>();
-            HashSet<Integer> dup = new HashSet<>();
-
             int startRow = (box / 3) * 3;
             int startCol = (box % 3) * 3;
 
-            for (int r = startRow; r < startRow + 3; r++) {
-                for (int c = startCol; c < startCol + 3; c++) {
-                    int value = board[r][c];
-                    if (!seen.add(value)) {
-                        dup.add(value);
-                    }
+            int[] freq = new int[10];
+            int[] fullBox = new int[9];
+            int idx = 0;
+
+            for (int r = 0; r < 3; r++) {
+                for (int c = 0; c < 3; c++) {
+                    int value = board[startRow + r][startCol + c];
+                    fullBox[idx++] = value;
+                    freq[value]++;
                 }
             }
 
-            if (!dup.isEmpty()) {
-                results.add(new DuplicateResult(
-                        "BOX " + (box + 1),
-                        dup
-                ));
+            for (int num = 1; num <= 9; num++) {
+                if (freq[num] > 1) {
+                    results.add(new DuplicateResult("BOX", box + 1, num, fullBox));
+                }
             }
         }
 
         return results;
     }
 }
-
-
-@Override
-    public List<DuplicateResult> check() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }

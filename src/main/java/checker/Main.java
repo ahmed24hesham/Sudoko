@@ -1,6 +1,6 @@
+package checker;
+
 import board.CsvLoader;
-import checker.Checker;
-import checker.CheckerFactory;
 import result.DuplicateResult;
 
 import java.io.IOException;

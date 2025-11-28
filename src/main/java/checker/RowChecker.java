@@ -1,8 +1,7 @@
 package checker;
 
 import result.DuplicateResult;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class RowChecker implements Checker {
 
@@ -14,24 +13,24 @@ public class RowChecker implements Checker {
 
     @Override
     public List<DuplicateResult> check() {
+
         List<DuplicateResult> results = new ArrayList<>();
 
         for (int row = 0; row < 9; row++) {
-            HashSet<Integer> seen = new HashSet<>();
-            HashSet<Integer> dup = new HashSet<>();
+
+            int[] freq = new int[10];
+            int[] fullRow = new int[9];
 
             for (int col = 0; col < 9; col++) {
                 int value = board[row][col];
-                if (!seen.add(value)) {
-                    dup.add(value);
-                }
+                fullRow[col] = value;
+                freq[value]++;
             }
 
-            if (!dup.isEmpty()) {
-                results.add(new DuplicateResult(
-                        "ROW " + (row + 1),
-                        dup
-                ));
+            for (int num = 1; num <= 9; num++) {
+                if (freq[num] > 1) {
+                    results.add(new DuplicateResult("ROW", row + 1, num, fullRow));
+                }
             }
         }
 
