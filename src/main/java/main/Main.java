@@ -1,17 +1,5 @@
-// في checker/Main.java
-package checker;
+package main;// checker/main.Main.java
 
-import board.CsvLoader;
-import result.DuplicateResult;
-import threads.RowThread;
-import threads.ColumnThread;
-import threads.BoxThread;
-import utils.ResultCollector;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import utils.*;
 
 public class Main {
@@ -23,7 +11,7 @@ public class Main {
         }
 
         if (args.length != 2) {
-            System.out.println("Usage: java checker.Main <csv_file> <mode>");
+            System.out.println("Usage: java main.Main <csv_file> <mode>");
             System.out.println("Modes: 0 (sequential), 3 (3 threads), 27 (27 threads)");
             return;
         }

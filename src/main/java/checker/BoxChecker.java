@@ -1,5 +1,5 @@
 package checker;
-
+import main.Main;
 import result.DuplicateResult;
 import java.util.*;
 
