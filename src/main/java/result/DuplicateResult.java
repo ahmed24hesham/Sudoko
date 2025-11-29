@@ -1,7 +1,10 @@
+// في result/DuplicateResult.java
 package result;
 
-public class DuplicateResult {
+import java.util.ArrayList;
+import java.util.List;
 
+public class DuplicateResult {
     private final String type;     // ROW, COL, BOX
     private final int index;       // 1–9
     private final int duplicate;   // The repeated number (ex: 1)
@@ -16,22 +19,16 @@ public class DuplicateResult {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(type)
-                .append(" ")
-                .append(index)
-                .append(", #")
-                .append(duplicate)
-                .append(", [");
+        // نجمع كل المواقع اللي فيها الرقم المكرر
+        List<Integer> positions = new ArrayList<>();
 
         for (int i = 0; i < values.length; i++) {
-            sb.append(values[i]);
-            if (i < values.length - 1)
-                sb.append(", ");
+            if (values[i] == duplicate) {
+                // المواقع تبدأ من 1
+                positions.add(i + 1);
+            }
         }
-        sb.append("]");
 
-        return sb.toString();
+        return type + " " + index + ", #" + duplicate + ", " + positions;
     }
 }
