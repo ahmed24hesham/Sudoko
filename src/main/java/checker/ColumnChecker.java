@@ -36,4 +36,26 @@ public class ColumnChecker implements Checker {
 
         return results;
     }
+    public List<DuplicateResult> checkSingle(int col) {
+        List<DuplicateResult> results = new ArrayList<>();
+        checkOneColumn(col, results);
+        return results;
+    }
+
+    private void checkOneColumn(int col, List<DuplicateResult> results) {
+        boolean[] seen = new boolean[10];
+        int[] fullCol = new int[10];
+
+        for (int row = 0; row < 9; row++) {
+            int val = board[row][col];
+            fullCol[row] = val;
+
+            if (seen[val]) {
+                results.add(new DuplicateResult("COL", col + 1, val, fullCol));
+            }
+
+            seen[val] = true;
+        }
+    }
+
 }

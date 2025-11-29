@@ -42,4 +42,33 @@ public class BoxChecker implements Checker {
 
         return results;
     }
+    public List<DuplicateResult> checkSingle(int box) {
+        List<DuplicateResult> results = new ArrayList<>();
+        checkOneBox(box, results);
+        return results;
+    }
+    private void checkOneBox(int box, List<DuplicateResult> results) {
+        boolean[] seen = new boolean[10];
+        int[] fullBox = new int[10];
+
+        int startRow = (box / 3) * 3;
+        int startCol = (box % 3) * 3;
+
+        int index = 0;
+
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                int val = board[startRow + r][startCol + c];
+                fullBox[index] = val;
+                index++;
+
+                if (seen[val]) {
+                    results.add(new DuplicateResult("BOX", box + 1, val, fullBox));
+                }
+
+                seen[val] = true;
+            }
+        }
+    }
+
 }

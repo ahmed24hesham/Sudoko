@@ -31,4 +31,19 @@ public class DuplicateResult {
 
         return type + " " + index + ", #" + duplicate + ", " + positions;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+    public int getDuplicate() {
+        return duplicate;
+    }
+    public int[] getValues() {
+
+        return values;
+    }
 }

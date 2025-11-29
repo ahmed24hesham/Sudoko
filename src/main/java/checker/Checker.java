@@ -5,7 +5,6 @@ import result.DuplicateResult;
 
 
 public interface Checker {
-
     /**
      * Checks the board for duplicates and returns
      * a list of DuplicateResult objects.
@@ -13,5 +12,6 @@ public interface Checker {
      * If the list is empty, this checker found no errors.
      */
     List<DuplicateResult> check();
+    List<DuplicateResult> checkSingle(int index);
 }
 
